@@ -1,3 +1,5 @@
+#!/usr/local/bin/python3
+
 import requests
 import getpass
 import socket
@@ -8,7 +10,6 @@ import os
 import sys
 
 interval = 15
-verb = 0
 
 def get_ip_address():
 	dbgmsg("Trying to obtain our current IP-Address...")
@@ -58,34 +59,37 @@ def establish_connection(user, pw):
 def dbgmsg(msg):
 	if verb: print("Dbg: " + msg) 
 	return
-
-if(sys.argv[1] == "-v"):
-	verb = 1
-	print("Debugging messages enabled.")
-
-loginid = input("Login ID: ") 
-pw = getpass.getpass()
-if establish_connection(loginid, pw) == 0:
-	exit()
-watchdog = input ("Enable connection watchdog? (y/n) ")
-wd_enabled = 1
-if watchdog == 'y':
+def main():
 	try:
-		pid = os.fork()
-	except OSError:
-		sys.exit(1)
-	if pid > 0:
-		sys.exit(0)
-	print("Watchdog-PID: " + str(os.getpid()) + "\n")
+		if(sys.argv[1] == "-v"):
+			verb = 1
+			print("Debugging messages enabled.")
+	except Exception:
+	 verb = 0
 
-	while wd_enabled:
-		time.sleep(interval)
-		if(ping("8.8.8.8")):
-			#print("O.K.")
-			continue
-		else:
-			print("\nRUBLOGIN-Watchdog: Connection lost. Trying to re-establish...")
-			establish_connection(loginid, pw)
+	loginid = input("Login ID: ") 
+	pw = getpass.getpass()
+	if establish_connection(loginid, pw) == 0:
+		exit()
+	watchdog = input ("Enable connection watchdog? (y/n) ")
+	wd_enabled = 1
+	if watchdog == 'y':
+		try:
+			pid = os.fork()
+		except OSError:
+			sys.exit(1)
+		if pid > 0:
+			sys.exit(0)
+		print("Watchdog-PID: " + str(os.getpid()) + "\n")
 
+		while wd_enabled:
+			time.sleep(interval)
+			if(ping("8.8.8.8")):
+				#print("O.K.")
+				continue
+			else:
+				print("\nRUBLOGIN-Watchdog: Connection lost. Trying to re-establish...")
+				establish_connection(loginid, pw)
 
+main()
 
