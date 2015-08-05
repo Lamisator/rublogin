@@ -10,6 +10,9 @@ import os
 import sys
 
 interval = 15
+verb = 0
+loginid = ""
+pw = ""
 
 def get_ip_address():
 	dbgmsg("Trying to obtain our current IP-Address...")
@@ -22,7 +25,7 @@ def get_ip_address():
 		dbgmsg("Failure! Network unreachable.") 
 		return 0
 def ping(host):
-	dbgmsg("Trying to determinate OS...")
+	dbgmsg("Trying to determine: OS...")
 	if platform.system() == "Windows":
 		dbgmsg("Windows detected.")
 		res = subprocess.call(["ping", host, "-n 1"])
@@ -62,11 +65,12 @@ def dbgmsg(msg):
 def main():
 	try:
 		if(sys.argv[1] == "-v"):
+			global verb
 			verb = 1
 			print("Debugging messages enabled.")
 	except Exception:
-	 verb = 0
-
+		 verb = 0
+	global loginid, pw
 	loginid = input("Login ID: ") 
 	pw = getpass.getpass()
 	if establish_connection(loginid, pw) == 0:
