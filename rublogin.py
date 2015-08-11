@@ -120,7 +120,7 @@ def main(argv):
 		opts, args = getopt.getopt(argv, "hvlw:", ["help","verbose","logout","watchdog="])	
 	except Exception:
 		verb = 0
-		print("Invalid arguments. Use the -h Parameter if you are lost.")
+		print("Invalid arguments. Use the -h parameter if you are lost.")
 		sys.exit()
 	for opt, arg in opts:
 		if opt in ("-h", "--help"):
