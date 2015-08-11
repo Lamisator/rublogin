@@ -1,14 +1,6 @@
 #!/usr/local/bin/python3
 
-import requests
-import getpass
-import socket
-import platform
-import subprocess
-import time
-import os
-import sys
-import getopt
+import requests, getpass, socket, platform, subprocess, time, os, sys, getopt
 
 verb = 0
 loginid = ""
@@ -30,7 +22,7 @@ def ping(host):
 		dbgmsg("Windows detected.")
 		res = subprocess.call(["ping", host, "-n 1"])
 	else:
-		dbgmsg("Other, UNIX(-like) OS detected.")
+		dbgmsg("UNIX(-like) OS detected.")
 		res = subprocess.call(["ping", "-c 1", host], stdin = subprocess.PIPE, stdout = subprocess.DEVNULL, stderr = subprocess.DEVNULL)
 	dbgmsg("Pinging to see if our connection is up...")
 	if res == 0:
