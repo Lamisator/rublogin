@@ -14,7 +14,7 @@ def get_ip_address():
 		dbgmsg("Success!")
 		return s.getsockname()[0]
 	except Exception:
-		dbgmsg("Failure! Network unreachable.") 
+		dbgmsg("Failure! Network unreachable.")
 		return 0
 def ping(host):
 	dbgmsg("Trying to determine: OS...")
@@ -74,7 +74,7 @@ def logout():
 
 def login(watchdog, interval):
 	global loginid, pw
-	loginid = input("Login ID: ") 
+	loginid = input("Login ID: ")
 	pw = getpass.getpass()
 	if establish_connection(loginid, pw) == 0:
 		exit()
@@ -101,7 +101,7 @@ def dbgmsg(msg):
 	if verb: print("Dbg: " + msg) 
 	return
 
-def help():
+def print_help():
 	print("Usage:\n -l / --logout : Terminates the current HIRN-Port-Session\n -w / --watchdog [interval]: Enables the watchdog. Checks the status of the connection every [interval] seconds and reconnects, if neccessary\n -v / --verbose : Prints debug messages throughout the login/logout process\n -h / --help : Displays this help")
 def main(argv):
 	global verb
@@ -109,14 +109,14 @@ def main(argv):
 	watchdog = 0
 	interval = 0
 	try:
-		opts, args = getopt.getopt(argv, "hvlw:", ["help","verbose","logout","watchdog="])	
+		opts = getopt.getopt(argv, "hvlw:", ["help","verbose","logout","watchdog="])	
 	except Exception:
 		verb = 0
 		print("Invalid arguments. Use the -h parameter if you are lost.")
 		sys.exit()
 	for opt, arg in opts:
 		if opt in ("-h", "--help"):
-			help()
+			 print_help()
 			sys.exit()
 		elif opt in("-v",  "--verbose"):
 			verb = 1
