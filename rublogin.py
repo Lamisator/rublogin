@@ -116,7 +116,7 @@ def main(argv):
 		sys.exit()
 	for opt, arg in opts:
 		if opt in ("-h", "--help"):
-			 print_help()
+			print_help()
 			sys.exit()
 		elif opt in("-v",  "--verbose"):
 			verb = 1
