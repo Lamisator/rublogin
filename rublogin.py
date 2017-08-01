@@ -120,7 +120,7 @@ def main(argv):
 			sys.exit()
 		elif opt in("-v",  "--verbose"):
 			verb = 1
-			print("Debugging messages enabled.")
+			print("Debugging messages enabled...")
 		elif opt in ("-l", "--logout"):
 			logout_v = 1
 		elif opt in ("-w", "--watchdog"):
